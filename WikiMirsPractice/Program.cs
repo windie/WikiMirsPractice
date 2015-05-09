@@ -8,8 +8,8 @@ using System.Xml;
 namespace WikiMirsPractice {
 
     public class PageParser {
-        ArrayList TextToFormulas(string str) {
-            ArrayList res = new ArrayList();
+        List<string> TextToFormulas(string str) {
+            List<string> res = new List<string>();
             int pos = str.IndexOf("<math>", 0);
             while (pos != -1 && pos < str.Length) {
                 int pos2 = str.IndexOf("</math>", pos + 1);
@@ -23,11 +23,11 @@ namespace WikiMirsPractice {
             return res;
         }
 
-        public ArrayList Parse(string xmlpath) {
+        public List<string> Parse(string xmlpath) {
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
             XmlReader reader = XmlReader.Create(xmlpath, settings);
-            ArrayList restext = new ArrayList();
+            List<string> restext = new List<string>();
             while (reader.Read()) {
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "text") {
                     reader.Read();
@@ -43,7 +43,7 @@ namespace WikiMirsPractice {
     class Program {
         static void Main(string[] args) {
             PageParser p = new PageParser();
-            ArrayList res = p.Parse("../../data/Singular_value.xml");
+            List<string> res = p.Parse("../../data/Singular_value.xml");
             foreach (string s in res) {
                 Console.WriteLine(s);
             }
